@@ -76,7 +76,10 @@ public class Engine extends Canvas implements Runnable {
 			return;
 		}
 
+		//clear screen before rendering
+		screen.clear();
 		screen.render();
+
 		for (int i = 0; i < pixels.length; i++){
 			pixels[i] = screen.pixels[i];
 		}
