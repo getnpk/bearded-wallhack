@@ -21,6 +21,8 @@ public class Engine extends Canvas implements Runnable {
 	public static int height = width / 16 * 9;
 	public static int scale = 3;
 
+	public static String title = "ENGINE";
+	
 	private Thread thread;
 	private JFrame frame;
 
@@ -55,10 +57,39 @@ public class Engine extends Canvas implements Runnable {
 	}
 
 	public void run() {
+		long lastTime = System.nanoTime();
+		long timer = System.currentTimeMillis();
+		
+		//we need 60 times a second
+		final double ns = 1000000000.0 / 60.0;
+		double delta = 0;
+		int frames = 0;
+		int updates = 0;
+		
 		while (running) {
-			update();
+			long now = System.nanoTime();
+			delta += (now - lastTime) / ns;
+			lastTime = now;
+			
+			while(delta >= 1){
+				update();
+				updates++;
+				delta--;
+			}
 			render();
+			frames++;
+			
+			//do this every second
+			if (System.currentTimeMillis() - timer > 1000){
+				timer += 1000;
+				//System.out.println(updates + " UPS, " + frames + " FPS");
+				frame.setTitle(Engine.title + " | " + updates + " UPS, " + frames + " FPS");
+				updates = 0;
+				frames = 0;
+			}
 		}
+		
+		stop();
 	}
 
 	public void update() {
@@ -99,7 +130,7 @@ public class Engine extends Canvas implements Runnable {
 	public static void main(String[] args) {
 		Engine engine = new Engine();
 		engine.frame.setResizable(false);
-		engine.frame.setTitle("Engine");
+		engine.frame.setTitle(Engine.title);
 		engine.frame.add(engine);
 		engine.frame.pack();
 		engine.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
