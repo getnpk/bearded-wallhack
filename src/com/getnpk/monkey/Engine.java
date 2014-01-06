@@ -60,7 +60,7 @@ public class Engine extends Canvas implements Runnable {
 		long lastTime = System.nanoTime();
 		long timer = System.currentTimeMillis();
 		
-		//we need 60 times a second
+		//we need an update 60 times a second
 		final double ns = 1000000000.0 / 60.0;
 		double delta = 0;
 		int frames = 0;
