@@ -92,7 +92,11 @@ public class Engine extends Canvas implements Runnable {
 		stop();
 	}
 
+	int x = 0, y = 0;
+	
 	public void update() {
+		x++;
+		y++;
 	}
 
 	/*
@@ -109,7 +113,7 @@ public class Engine extends Canvas implements Runnable {
 
 		//clear screen before rendering
 		screen.clear();
-		screen.render();
+		screen.render(x,y);
 
 		for (int i = 0; i < pixels.length; i++){
 			pixels[i] = screen.pixels[i];

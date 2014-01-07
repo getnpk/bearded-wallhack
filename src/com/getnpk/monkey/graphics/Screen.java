@@ -27,17 +27,20 @@ public class Screen {
 		}
 	}
 	
-	public void render(){
+	public void render(int xoffset, int yoffset){
 		
 		for (int y = 0; y < height; y++){
-			if (y < 0 || y >= height) break;
+			int yy = y + yoffset;
+			//if (yy < 0 || yy >= height) break;
 			for (int x = 0; x < width; x++){
-				if (x < 0 || x >= width) break;
+				int xx = x + xoffset;
+				//if (xx < 0 || xx >= width) break;
 				/*
 				 * We want a tile size of 16x16.
 				 * Optimistion x >> 4 for x / 16
+				 * If xx >= 64, set it back to 0
 				 */
-				int tileIndex = (x >> 4) + (y >> 4) * 64;
+				int tileIndex = ((xx >> 4) & 63 ) + ((yy >> 4) & 63 ) * 64;
 				pixels[x + y * width] = tiles[tileIndex];
 			}
 		}
