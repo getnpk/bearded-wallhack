@@ -37,13 +37,10 @@ public class Screen {
 			for (int x = 0; x < width; x++){
 				int xx = x + xoffset;
 				//if (xx < 0 || xx >= width) break;
-				/*
-				 * We want a tile size of MAP_SIZExMAP_SIZE.
-				 * Optimistion x >> 4 for x / 16
-				 * If xx >= 64, set it back to 0 (0-63)
-				 */
+
 				int tileIndex = ((xx >> 4) & MAP_SIZE_MASK ) + ((yy >> 4) & MAP_SIZE_MASK ) * MAP_SIZE;
-				pixels[x + y * width] = tiles[tileIndex];
+				//pixels[x + y * width] = tiles[tileIndex];
+				pixels[x + y * width] = Sprite.grass.pixels[(x & 15) + (y & 15) * Sprite.grass.size ];
 			}
 		}
 	}
