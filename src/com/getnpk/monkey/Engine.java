@@ -71,6 +71,9 @@ public class Engine extends Canvas implements Runnable {
 		int frames = 0;
 		int updates = 0;
 		
+		//focus on canvas
+		requestFocus();
+		
 		while (running) {
 			long now = System.nanoTime();
 			delta += (now - lastTime) / ns;
